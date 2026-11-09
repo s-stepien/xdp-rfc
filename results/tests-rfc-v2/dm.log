@@ -1,0 +1,5 @@
+KERNEL 7.4.0-rc1-00605-gd13143bd5128
+loaded: redirect v1(11) -> devmap -> v2(12) with egress prog
+RESULT devmap egress: redirected=40 egress_runs=40 trimmed=20 v3_frames=45 cow=49 types: 40 type=0x4  errors=0
+waiting 75s after teardown
+RESULT after 75s: errors=0

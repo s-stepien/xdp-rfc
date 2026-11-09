@@ -1,0 +1,7 @@
+KERNEL 7.4.0-rc1-00605-gd13143bd5128
+RESULT xdpgeneric: packets_shrunk=20 kernel_errors=0
+RESULT xdpdrv: packets_shrunk=20 kernel_errors=0
+RESULT xdp_tx_frags: bounced=200 kernel_errors=0
+RESULT xdp_tx_shrink: bounced=200 kernel_errors=0
+KERNEL 7.4.0-rc1-00605-gd13143bd5128
+RESULT peer: bounced=50 trimmed=50 kernel_errors=0
