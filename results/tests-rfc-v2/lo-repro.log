@@ -1,0 +1,7 @@
+== step 1: xdp_adjust_tail on a fresh boot
+Summary: 1/5 PASSED, 0 SKIPPED, 0/0 FAILED
+splats=0
+== step 2: generic XDP on lo for one ping, then detach
+== step 3: xdp_adjust_tail again
+Summary: 1/5 PASSED, 0 SKIPPED, 0/0 FAILED
+splats=0

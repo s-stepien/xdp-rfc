@@ -1,0 +1,268 @@
+Replacing allowed ports
+Added port 8080
+Replacing TCP/IP options
+Replacing allowed ports
+Added port 8080
+Replacing TCP/IP options
+31/4   ns_xsk_drv/POLL_RX:OK
+#331/5   ns_xsk_drv/POLL_TX:OK
+#331/6   ns_xsk_drv/POLL_RXQ_FULL:OK
+#331/7   ns_xsk_drv/POLL_TXQ_FULL:OK
+#331/8   ns_xsk_drv/ALIGNED_INV_DESC:OK
+#331/9   ns_xsk_drv/ALIGNED_INV_DESC_2K_FRAME_SIZE:OK
+#331/10  ns_xsk_drv/UMEM_HEADROOM:OK
+#331/11  ns_xsk_drv/BIDIRECTIONAL:OK
+#331/12  ns_xsk_drv/STAT_RX_DROPPED:OK
+#331/13  ns_xsk_drv/STAT_TX_INVALID:OK
+#331/14  ns_xsk_drv/STAT_RX_FULL:OK
+#331/15  ns_xsk_drv/STAT_FILL_EMPTY:OK
+#331/16  ns_xsk_drv/XDP_PROG_CLEANUP:OK
+#331/17  ns_xsk_drv/XDP_DROP_HALF:OK
+#331/18  ns_xsk_drv/XDP_SHARED_UMEM:OK
+#331/19  ns_xsk_drv/XDP_METADATA_COPY:OK
+#331/20  ns_xsk_drv/XDP_METADATA_COPY_MULTI_BUFF:OK
+#331/21  ns_xsk_drv/ALIGNED_INV_DESC_MULTI_BUFF:OK
+#331/22  ns_xsk_drv/TOO_MANY_FRAGS:OK
+#331/23  ns_xsk_drv/XDP_ADJUST_TAIL_SHRINK:OK
+#331/24  ns_xsk_drv/TX_QUEUE_CONSUMER:OK
+#331     ns_xsk_drv:OK
+#332/1   ns_xsk_skb/SEND_RECEIVE:OK
+#332/2   ns_xsk_skb/SEND_RECEIVE_2K_FRAME:OK
+#332/3   ns_xsk_skb/SEND_RECEIVE_SINGLE_PKT:OK
+#332/4   ns_xsk_skb/POLL_RX:OK
+#332/5   ns_xsk_skb/POLL_TX:OK
+#332/6   ns_xsk_skb/POLL_RXQ_FULL:OK
+#332/7   ns_xsk_skb/POLL_TXQ_FULL:OK
+#332/8   ns_xsk_skb/ALIGNED_INV_DESC:OK
+#332/9   ns_xsk_skb/ALIGNED_INV_DESC_2K_FRAME_SIZE:OK
+#332/10  ns_xsk_skb/UMEM_HEADROOM:OK
+#332/11  ns_xsk_skb/BIDIRECTIONAL:OK
+#332/12  ns_xsk_skb/STAT_RX_DROPPED:OK
+#332/13  ns_xsk_skb/STAT_TX_INVALID:OK
+#332/14  ns_xsk_skb/STAT_RX_FULL:OK
+#332/15  ns_xsk_skb/STAT_FILL_EMPTY:OK
+#332/16  ns_xsk_skb/XDP_PROG_CLEANUP:OK
+#332/17  ns_xsk_skb/XDP_DROP_HALF:OK
+#332/18  ns_xsk_skb/XDP_SHARED_UMEM:OK
+#332/19  ns_xsk_skb/XDP_METADATA_COPY:OK
+#332/20  ns_xsk_skb/XDP_METADATA_COPY_MULTI_BUFF:OK
+#332/21  ns_xsk_skb/ALIGNED_INV_DESC_MULTI_BUFF:OK
+#332/22  ns_xsk_skb/TOO_MANY_FRAGS:OK
+#332/23  ns_xsk_skb/XDP_ADJUST_TAIL_SHRINK:OK
+#332/24  ns_xsk_skb/TX_QUEUE_CONSUMER:OK
+#332     ns_xsk_skb:OK
+#764/1   verifier_xdp/XDP, using ifindex from netdev:OK
+#764/2   verifier_xdp/XDP, using xdp_store_bytes from RO map:OK
+#764     verifier_xdp:OK
+#765/1   verifier_xdp_direct_packet_access/XDP pkt read, pkt_end mangling, bad access 1:OK
+#765/2   verifier_xdp_direct_packet_access/XDP pkt read, pkt_end mangling, bad access 2:OK
+#765/3   verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' > pkt_end, corner case, good access:OK
+#765/4   verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' > pkt_end, bad access 1:OK
+#765/5   verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' > pkt_end, bad access 2:OK
+#765/6   verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' > pkt_end, corner case +1, good access:OK
+#765/7   verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' > pkt_end, corner case -1, bad access:OK
+#765/8   verifier_xdp_direct_packet_access/XDP pkt read, pkt_end > pkt_data', good access:OK
+#765/9   verifier_xdp_direct_packet_access/XDP pkt read, pkt_end > pkt_data', corner case -1, bad access:OK
+#765/10  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end > pkt_data', bad access 2:OK
+#765/11  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end > pkt_data', corner case, good access:OK
+#765/12  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end > pkt_data', corner case +1, good access:OK
+#765/13  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' < pkt_end, good access:OK
+#765/14  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' < pkt_end, corner case -1, bad access:OK
+#765/15  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' < pkt_end, bad access 2:OK
+#765/16  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' < pkt_end, corner case, good access:OK
+#765/17  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' < pkt_end, corner case +1, good access:OK
+#765/18  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end < pkt_data', corner case, good access:OK
+#765/19  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end < pkt_data', bad access 1:OK
+#765/20  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end < pkt_data', bad access 2:OK
+#765/21  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end < pkt_data', corner case +1, good access:OK
+#765/22  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end < pkt_data', corner case -1, bad access:OK
+#765/23  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' >= pkt_end, good access:OK
+#765/24  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' >= pkt_end, corner case -1, bad access:OK
+#765/25  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' >= pkt_end, bad access 2:OK
+#765/26  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' >= pkt_end, corner case, good access:OK
+#765/27  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' >= pkt_end, corner case +1, good access:OK
+#765/28  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end >= pkt_data', corner case, good access:OK
+#765/29  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end >= pkt_data', bad access 1:OK
+#765/30  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end >= pkt_data', bad access 2:OK
+#765/31  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end >= pkt_data', corner case +1, good access:OK
+#765/32  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end >= pkt_data', corner case -1, bad access:OK
+#765/33  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' <= pkt_end, corner case, good access:OK
+#765/34  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' <= pkt_end, bad access 1:OK
+#765/35  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' <= pkt_end, bad access 2:OK
+#765/36  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' <= pkt_end, corner case +1, good access:OK
+#765/37  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data' <= pkt_end, corner case -1, bad access:OK
+#765/38  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end <= pkt_data', good access:OK
+#765/39  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end <= pkt_data', corner case -1, bad access:OK
+#765/40  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end <= pkt_data', bad access 2:OK
+#765/41  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end <= pkt_data', corner case, good access:OK
+#765/42  verifier_xdp_direct_packet_access/XDP pkt read, pkt_end <= pkt_data', corner case +1, good access:OK
+#765/43  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' > pkt_data, corner case, good access:OK
+#765/44  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' > pkt_data, bad access 1:OK
+#765/45  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' > pkt_data, bad access 2:OK
+#765/46  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' > pkt_data, corner case +1, good access:OK
+#765/47  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' > pkt_data, corner case -1, bad access:OK
+#765/48  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data > pkt_meta', good access:OK
+#765/49  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data > pkt_meta', corner case -1, bad access:OK
+#765/50  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data > pkt_meta', bad access 2:OK
+#765/51  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data > pkt_meta', corner case, good access:OK
+#765/52  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data > pkt_meta', corner case +1, good access:OK
+#765/53  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' < pkt_data, good access:OK
+#765/54  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' < pkt_data, corner case -1, bad access:OK
+#765/55  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' < pkt_data, bad access 2:OK
+#765/56  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' < pkt_data, corner case, good access:OK
+#765/57  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' < pkt_data, corner case +1, good access:OK
+#765/58  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data < pkt_meta', corner case, good access:OK
+#765/59  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data < pkt_meta', bad access 1:OK
+#765/60  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data < pkt_meta', bad access 2:OK
+#765/61  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data < pkt_meta', corner case +1, good access:OK
+#765/62  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data < pkt_meta', corner case -1, bad access:OK
+#765/63  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' >= pkt_data, good access:OK
+#765/64  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' >= pkt_data, corner case -1, bad access:OK
+#765/65  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' >= pkt_data, bad access 2:OK
+#765/66  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' >= pkt_data, corner case, good access:OK
+#765/67  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' >= pkt_data, corner case +1, good access:OK
+#765/68  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data >= pkt_meta', corner case, good access:OK
+#765/69  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data >= pkt_meta', bad access 1:OK
+#765/70  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data >= pkt_meta', bad access 2:OK
+#765/71  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data >= pkt_meta', corner case +1, good access:OK
+#765/72  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data >= pkt_meta', corner case -1, bad access:OK
+#765/73  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' <= pkt_data, corner case, good access:OK
+#765/74  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' <= pkt_data, bad access 1:OK
+#765/75  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' <= pkt_data, bad access 2:OK
+#765/76  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' <= pkt_data, corner case +1, good access:OK
+#765/77  verifier_xdp_direct_packet_access/XDP pkt read, pkt_meta' <= pkt_data, corner case -1, bad access:OK
+#765/78  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data <= pkt_meta', good access:OK
+#765/79  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data <= pkt_meta', corner case -1, bad access:OK
+#765/80  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data <= pkt_meta', bad access 2:OK
+#765/81  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data <= pkt_meta', corner case, good access:OK
+#765/82  verifier_xdp_direct_packet_access/XDP pkt read, pkt_data <= pkt_meta', corner case +1, good access:OK
+#765/83  verifier_xdp_direct_packet_access/XDP pkt regsafe preserves packet pointer class displacement:OK
+#765     verifier_xdp_direct_packet_access:OK
+#793     verif_scale_xdp_loop:OK
+#803     xdp:OK
+#804/1   xdp_adjust_frags/xdp_adjust_frags:OK
+#804     xdp_adjust_frags:OK
+#805/1   xdp_adjust_tail/xdp_adjust_tail_shrink:OK
+#805/2   xdp_adjust_tail/xdp_adjust_tail_grow:OK
+#805/3   xdp_adjust_tail/xdp_adjust_tail_grow2:OK
+#805/4   xdp_adjust_tail/xdp_adjust_frags_tail_shrink:OK
+#805/5   xdp_adjust_tail/xdp_adjust_frags_tail_grow:OK
+#805     xdp_adjust_tail:OK
+#806/1   xdp_attach/xdp_attach:OK
+#806/2   xdp_attach/xdp_attach_dynptr:OK
+#806/3   xdp_attach/xdp_attach_failed:OK
+#806     xdp_attach:OK
+#807/1   xdp_bonding/xdp_bonding_attach:OK
+#807/2   xdp_bonding/xdp_bonding_nested:OK
+#807/3   xdp_bonding/xdp_bonding_features:OK
+#807/4   xdp_bonding/xdp_bonding_roundrobin:OK
+#807/5   xdp_bonding/xdp_bonding_activebackup:OK
+#807/6   xdp_bonding/xdp_bonding_xor_layer2:OK
+#807/7   xdp_bonding/xdp_bonding_xor_layer23:OK
+#807/8   xdp_bonding/xdp_bonding_xor_layer34:OK
+#807/9   xdp_bonding/xdp_bonding_xmit_policy_compat:OK
+#807/10  xdp_bonding/xdp_bonding_redirect_multi:OK
+#807/11  xdp_bonding/xdp_bonding_redirect_no_up:OK
+#807     xdp_bonding:OK
+#808     xdp_bpf2bpf:OK
+#809/1   xdp_context_lwt_encap/bpf_encap:OK
+#809/2   xdp_context_lwt_encap/mpls_encap:OK
+#809/3   xdp_context_lwt_encap/seg6_encap:OK
+#809/4   xdp_context_lwt_encap/ioam6_encap:OK
+#809     xdp_context_lwt_encap:OK
+#810     xdp_context_test_run:OK
+#811/1   xdp_context_tuntap/data_meta:OK
+#811/2   xdp_context_tuntap/dynptr_read:OK
+#811/3   xdp_context_tuntap/dynptr_slice:OK
+#811/4   xdp_context_tuntap/dynptr_write:OK
+#811/5   xdp_context_tuntap/dynptr_slice_rdwr:OK
+#811/6   xdp_context_tuntap/dynptr_offset:OK
+#811/7   xdp_context_tuntap/dynptr_offset_oob:OK
+#811/8   xdp_context_tuntap/clone_data_meta_survives_data_write:OK
+#811/9   xdp_context_tuntap/clone_data_meta_survives_meta_write:OK
+#811/10  xdp_context_tuntap/clone_meta_dynptr_survives_data_slice_write:OK
+#811/11  xdp_context_tuntap/clone_meta_dynptr_survives_meta_slice_write:OK
+#811/12  xdp_context_tuntap/clone_meta_dynptr_rw_before_data_dynptr_write:OK
+#811/13  xdp_context_tuntap/clone_meta_dynptr_rw_before_meta_dynptr_write:OK
+#811/14  xdp_context_tuntap/helper_skb_vlan_push_pop:OK
+#811/15  xdp_context_tuntap/helper_skb_adjust_room:OK
+#811/16  xdp_context_tuntap/helper_skb_change_head_tail:OK
+#811/17  xdp_context_tuntap/helper_skb_change_proto:OK
+#811     xdp_context_tuntap:OK
+#812     xdp_context_veth:OK
+#813/1   xdp_cpumap_attach/CPUMAP with programs in entries:OK
+#813/2   xdp_cpumap_attach/CPUMAP with frags programs in entries:OK
+#813     xdp_cpumap_attach:OK
+#814     xdp_dev_bound_only_offdev:OK
+#815/1   xdp_devmap_attach/DEVMAP with programs in entries:OK
+#815/2   xdp_devmap_attach/DEVMAP with frags programs in entries:OK
+#815/3   xdp_devmap_attach/Verifier check of DEVMAP programs:OK
+#815/4   xdp_devmap_attach/DEVMAP with programs in entries on veth:OK
+#815     xdp_devmap_attach:OK
+#816     xdp_do_redirect:OK
+#817     xdp_flowtable:OK
+#818     xdp_generic_cow:SKIP (not built)
+#819/1   xdp_index_redirect/noflag:OK
+#819/2   xdp_index_redirect/drvflag:OK
+#819/3   xdp_index_redirect/skbflag:OK
+#819     xdp_index_redirect:OK
+#820     xdp_info:OK
+#821     xdp_link:OK
+#822     xdp_metadata:OK
+#823     xdp_noinline:OK
+#824     xdp_perf:OK
+#825/1   xdp_pull_data/xdp_pull_data:OK
+#825     xdp_pull_data:OK
+Actual changes:
+tx-checksum-ip-generic: off
+tx-tcp-segmentation: off [not requested]
+tx-tcp-ecn-segmentation: off [not requested]
+tx-tcp-mangleid-segmentation: off [not requested]
+tx-tcp6-segmentation: off [not requested]
+tx-udp-segmentation: off [not requested]
+tx-checksum-sctp: off
+net.ipv4.tcp_syncookies = 2
+net.ipv4.tcp_timestamps = 1
+net.netfilter.nf_conntrack_tcp_loose = 0
+Actual changes:
+tx-checksum-ip-generic: off
+tx-tcp-segmentation: off [not requested]
+tx-tcp-ecn-segmentation: off [not requested]
+tx-tcp-mangleid-segmentation: off [not requested]
+tx-tcp6-segmentation: off [not requested]
+tx-udp-segmentation: off [not requested]
+tx-checksum-sctp: off
+net.ipv4.tcp_syncookies = 2
+net.ipv4.tcp_timestamps = 1
+net.netfilter.nf_conntrack_tcp_loose = 0
+#826/1   xdp_synproxy/xdp:OK
+#826/2   xdp_synproxy/tc:OK
+#826     xdp_synproxy:OK
+#827/1   xdp_veth_broadcast_redirect/0/BROADCAST:OK
+#827/2   xdp_veth_broadcast_redirect/0/(BROADCAST | EXCLUDE_INGRESS):OK
+#827/3   xdp_veth_broadcast_redirect/DRV_MODE/BROADCAST:OK
+#827/4   xdp_veth_broadcast_redirect/DRV_MODE/(BROADCAST | EXCLUDE_INGRESS):OK
+#827/5   xdp_veth_broadcast_redirect/SKB_MODE/BROADCAST:OK
+#827/6   xdp_veth_broadcast_redirect/SKB_MODE/(BROADCAST | EXCLUDE_INGRESS):OK
+#827     xdp_veth_broadcast_redirect:OK
+#828/1   xdp_veth_egress/0/egress:OK
+#828/2   xdp_veth_egress/DRV_MODE/egress:OK
+#828/3   xdp_veth_egress/SKB_MODE/egress:OK
+#828/4   xdp_veth_egress/SKB_MODE/egress_last_dst:OK
+#828     xdp_veth_egress:OK
+#829/1   xdp_veth_redirect/0:OK
+#829/2   xdp_veth_redirect/DRV_MODE:OK
+#829/3   xdp_veth_redirect/SKB_MODE:OK
+#829     xdp_veth_redirect:OK
+#830/1   xdp_vlan_change/0:OK
+#830/2   xdp_vlan_change/DRV_MODE:OK
+#830/3   xdp_vlan_change/SKB_MODE:OK
+#830     xdp_vlan_change:OK
+#831/1   xdp_vlan_remove/0:OK
+#831/2   xdp_vlan_remove/DRV_MODE:OK
+#831/3   xdp_vlan_remove/SKB_MODE:OK
+#831     xdp_vlan_remove:OK
+#832     xdpwall:OK
+Summary: 34/205 PASSED, 1 SKIPPED (1 not built), 0/0 FAILED
+=== dmesg splats ===
+0
