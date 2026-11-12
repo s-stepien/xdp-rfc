@@ -63,7 +63,7 @@ ethtool, iproute2, python3.
 make -C bench                                  # bench.bpf.o
 bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...
 python3 bench/bench-summary.py logs vbase vrfc # medians, min..max, page_pool stats
-python3 bench/bench-ci.py logs vbase:vrfc      # change + 95% bootstrap CI
+python3 bench/bench-ci.py --boots logs vbase:vrfc  # change + 95% CI, resampling whole boots
 ```
 
 `bench-run.sh <rounds> <reps> <seconds> name=tree...` boots the kernels in
