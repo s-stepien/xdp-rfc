@@ -16,12 +16,20 @@ names = sys.argv[2:]
 res = defaultdict(lambda: defaultdict(list))   # test -> kernel -> [pps]
 pp = defaultdict(lambda: defaultdict(list))    # (test, stat) -> kernel -> [val]
 errors = {}
+broken = defaultdict(int)                      # kernel -> result lines mixed with other output
+napi = defaultdict(set)                        # kernel -> NAPI modes seen in the logs
 
 for name in names:
     errors[name] = 0
     for log in sorted(logs.glob(f"bench-{name}-*.log")):
         for line in log.read_text(errors="replace").splitlines():
-            m = re.match(r"(RESULT|DELIV) (\S+) size=(\d+) cpus=(\d+) rep=\d+ pps=(\d+)", line)
+            m = re.match(r"KERNEL .* napi=(\S+)$", line)
+            if m:
+                napi[name].add(m[1])
+            m = re.match(r"(RESULT|DELIV) (\S+) size=(\d+) cpus=(\d+) rep=\d+ pps=(\d+)$", line)
+            if not m and re.search(r"(RESULT|DELIV) \S+ size=", line):
+                broken[name] += 1
+                continue
             if m:
                 kind = "" if m[1] == "RESULT" else " deliv"
                 key = f"{m[2] + kind:<19} {m[3]:>5}B cpus={m[4]}"
@@ -65,3 +73,8 @@ for (test, stat) in stats:
 
 print()
 print("kernel errors:", ", ".join(f"{n}={errors[n]}" for n in names))
+modes = {m for n in names for m in napi[n]}
+if len(modes) > 1:
+    print("WARNING: logs mix NAPI modes:", ", ".join(f"{n}={'/'.join(sorted(napi[n]))}" for n in names))
+for n, c in sorted(broken.items()):
+    print(f"WARNING: {n}: {c} result line(s) mixed with other output, not used")

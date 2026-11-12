@@ -9,13 +9,23 @@
 # DELIV: native_tx = v0's program, native_redir = v3's program (devmap to
 # another veth), cpu_redir = UDP packets reaching the stack on CPU 2
 # (cpumap; pktgen sends to UDP port 9, so they count as Udp NoPorts).
+#
+# NAPI=softirq (default): veth NAPI runs as softirq on the CPU that kicks it,
+#   i.e. pktgen's CPU 1; every NAPI poll handles one packet.
+# NAPI=threaded: threaded NAPI, the threads pinned away from pktgen (v1 on
+#   CPU 3, v0 on CPU 5, v3 on CPU 6), so polls see batches of packets.
 set -u
+# One output stream: stderr written separately into the same log through
+# virtme-ng can overwrite stdout lines.
+exec 2>&1
 D="$1"; REPS="${2:-3}"; SECS="${3:-8}"
+NAPI="${NAPI:-softirq}"
+case "$NAPI" in softirq|threaded) ;; *) echo "NAPI must be softirq or threaded"; exit 1 ;; esac
 OBJ="$D/bench.bpf.o"
 ERR="Bad page state|page_pool leak|BUG:|WARNING:|underflow|stalled pool|inflight"
 PG=/proc/net/pktgen
 
-echo "KERNEL $(uname -r) cpus=$(nproc) reps=$REPS secs=$SECS"
+echo "KERNEL $(uname -r) cpus=$(nproc) reps=$REPS secs=$SECS napi=$NAPI"
 dmesg -C
 
 pgset() { echo "$2" > "$PG/$1" || echo "pktgen: '$2' -> $1 failed"; }
@@ -66,6 +76,17 @@ setup() { # <mode: native|generic> <prog on v1> [peer prog on v0]
 		ip netns exec a bpftool map update id "$m" key 0 0 0 0 \
 			value $(printf '%d %d %d %d' $((idx & 255)) $((idx >> 8 & 255)) 0 0) \
 			|| echo "devmap update failed"
+	fi
+	if [ "$NAPI" = threaded ]; then
+		# only devices with an XDP program have NAPI; others fail, silently
+		ip netns exec a sh -c 'echo 1 > /sys/class/net/v1/threaded' 2>/dev/null
+		echo 1 > /sys/class/net/v0/threaded 2>/dev/null
+		ip netns exec b sh -c 'echo 1 > /sys/class/net/v3/threaded' 2>/dev/null
+		sleep 0.3
+		local p
+		for p in $(pgrep '^napi/v1-'); do taskset -pc 3 "$p" >/dev/null; done
+		for p in $(pgrep '^napi/v0-'); do taskset -pc 5 "$p" >/dev/null; done
+		for p in $(pgrep '^napi/v3-'); do taskset -pc 6 "$p" >/dev/null; done
 	fi
 	DLV=
 	case "$2" in

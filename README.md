@@ -61,7 +61,8 @@ ethtool, iproute2, python3.
 
 ```
 make -C bench                                  # bench.bpf.o
-bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...
+bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...                 # softirq NAPI
+NAPI=threaded bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...   # threaded NAPI
 python3 bench/bench-summary.py logs vbase vrfc # medians, min..max, page_pool stats
 python3 bench/bench-ci.py --boots logs vbase:vrfc  # change + 95% CI, resampling whole boots
 ```
@@ -69,6 +70,21 @@ python3 bench/bench-ci.py --boots logs vbase:vrfc  # change + 95% CI, resampling
 `bench-run.sh <rounds> <reps> <seconds> name=tree...` boots the kernels in
 turn (round-robin, so drift on the host hits all of them alike) in a VM with
 8 vCPUs and 8 GB and runs `bench.sh` there; logs go to `logs/bench-<name>-<round>.log`.
+
+The vCPUs are pinned 1:1 to host CPUs 0-7 (`bench/vng-pinned.sh`, other QEMU
+threads on 8-15; set `PIN_CPUS`/`PIN_OTHER` for another host). The pinning of
+every boot is written to `logs/bench-<name>-<round>.log.pin`; a boot that could
+not be pinned is reported and its log renamed to `.unpinned`. Without pinning,
+on a host with two CCDs (Ryzen 9 9950X) the threaded test gave boots up to
+~40 % apart, depending on where the host put the vCPUs.
+
+`NAPI=softirq` (default) is veth's default: its NAPI runs as softirq on the
+CPU that kicks it, which is pktgen's CPU, so every NAPI poll handles exactly
+one packet and nothing is batched. `NAPI=threaded` makes the NAPI of v1, v0
+and v3 threaded and pins the threads to CPUs 3, 5 and 6, so producer and
+consumers run on different CPUs and polls see batches. The mode is printed
+in each log's `KERNEL` line; `bench-summary.py` warns if logs mix modes and
+both scripts warn about result lines damaged by other output.
 
 `bench.sh` creates veth pair v0 (init netns) <-> v1 (netns a) with MTU 9000.
 pktgen on CPU 1 sends skbs into v0 (`ndo_start_xmit`), so the XDP program on
