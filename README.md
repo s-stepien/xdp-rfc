@@ -63,6 +63,7 @@ ethtool, iproute2, python3.
 make -C bench                                  # bench.bpf.o
 bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...                 # softirq NAPI
 NAPI=threaded bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ...   # threaded NAPI
+SENDERS=1,3,4,5 bench/bench-run.sh 4 3 8 vbase=<tree> vrfc=<tree> ... # 4 senders, softirq
 python3 bench/bench-summary.py logs vbase vrfc # medians, min..max, page_pool stats
 python3 bench/bench-ci.py --boots logs vbase:vrfc  # change + 95% CI, resampling whole boots
 ```
@@ -85,6 +86,12 @@ and v3 threaded and pins the threads to CPUs 3, 5 and 6, so producer and
 consumers run on different CPUs and polls see batches. The mode is printed
 in each log's `KERNEL` line; `bench-summary.py` warns if logs mix modes and
 both scripts warn about result lines damaged by other output.
+
+`SENDERS=1,3,4,5` runs one pktgen thread per listed CPU (default `1`; CPU 2
+is the cpumap target). With softirq NAPI, v1's NAPI then stays on the CPU
+that first kicked it while the others keep the ring full: every poll handles
+the full budget of 64 packets, so the receiving side is the bottleneck. The
+results carry `cpus=4`; the senders are printed in the `KERNEL` line.
 
 `bench.sh` creates veth pair v0 (init netns) <-> v1 (netns a) with MTU 9000.
 pktgen on CPU 1 sends skbs into v0 (`ndo_start_xmit`), so the XDP program on

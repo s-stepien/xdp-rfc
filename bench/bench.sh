@@ -14,18 +14,24 @@
 #   i.e. pktgen's CPU 1; every NAPI poll handles one packet.
 # NAPI=threaded: threaded NAPI, the threads pinned away from pktgen (v1 on
 #   CPU 3, v0 on CPU 5, v3 on CPU 6), so polls see batches of packets.
+# SENDERS=<cpus>: pktgen threads sending into v0 (default 1). With e.g.
+#   SENDERS=1,3,4,5 and softirq NAPI, the NAPI poll runs on the CPU of the
+#   sender that kicked it while the others keep filling the ring, as with
+#   several senders into one veth. CPU 2 is the cpumap target, keep it free.
 set -u
 # One output stream: stderr written separately into the same log through
 # virtme-ng can overwrite stdout lines.
 exec 2>&1
 D="$1"; REPS="${2:-3}"; SECS="${3:-8}"
 NAPI="${NAPI:-softirq}"
+SENDERS="${SENDERS:-1}"
+SENDERS="${SENDERS//,/ }"	# commas allowed: spaces do not survive the vng command line
 case "$NAPI" in softirq|threaded) ;; *) echo "NAPI must be softirq or threaded"; exit 1 ;; esac
 OBJ="$D/bench.bpf.o"
 ERR="Bad page state|page_pool leak|BUG:|WARNING:|underflow|stalled pool|inflight"
 PG=/proc/net/pktgen
 
-echo "KERNEL $(uname -r) cpus=$(nproc) reps=$REPS secs=$SECS napi=$NAPI"
+echo "KERNEL $(uname -r) cpus=$(nproc) reps=$REPS secs=$SECS napi=$NAPI senders=${SENDERS// /,}"
 dmesg -C
 
 pgset() { echo "$2" > "$PG/$1" || echo "pktgen: '$2' -> $1 failed"; }
@@ -139,13 +145,15 @@ run() {
 for size in 64 8000; do
 	frags=0; [ "$size" = 8000 ] && frags=3
 
-	setup native xdp_drop_cnt;            run native_drop  $size $frags 1; teardown
-	setup native xdp_tx_cnt xdp_drop_cnt; run native_tx    $size $frags 1; teardown
-	setup native xdp_redir_cnt;           run native_redir $size $frags 1; teardown
-	setup native xdp_cpu_cnt;             run cpu_redir    $size $frags 1; teardown
+	setup native xdp_drop_cnt;            run native_drop  $size $frags "$SENDERS"; teardown
+	setup native xdp_tx_cnt xdp_drop_cnt; run native_tx    $size $frags "$SENDERS"; teardown
+	setup native xdp_redir_cnt;           run native_redir $size $frags "$SENDERS"; teardown
+	setup native xdp_cpu_cnt;             run cpu_redir    $size $frags "$SENDERS"; teardown
 
-	setup generic xdp_drop_cnt;           run generic_drop $size $frags 1;         teardown
-	setup generic xdp_drop_cnt;           run generic_drop $size $frags "1 2 3 4"; teardown
+	setup generic xdp_drop_cnt;           run generic_drop $size $frags "$SENDERS"; teardown
+	if [ "$SENDERS" = 1 ]; then
+		setup generic xdp_drop_cnt;   run generic_drop $size $frags "1 2 3 4"; teardown
+	fi
 done
 
 echo "ERRORS $(dmesg | grep -c -E "$ERR")"
