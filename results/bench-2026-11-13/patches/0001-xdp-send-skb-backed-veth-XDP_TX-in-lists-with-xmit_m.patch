@@ -1,0 +1,239 @@
+From f8286cf0d2418b66bf13be20a8d8b0f113a77533 Mon Sep 17 00:00:00 2001
+From: Slawomir Stepien <sst@poczta.fm>
+Date: Thu, 12 Nov 2026 13:27:36 +0100
+Subject: [PATCH 1/2] xdp: send skb-backed veth XDP_TX in lists with xmit_more
+ (experiment V1)
+
+---
+ drivers/net/veth.c        | 30 ++++++++++--
+ include/linux/netdevice.h |  5 ++
+ net/core/dev.c            | 97 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 126 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 049c95dbb8be..56aec99ebe95 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -746,8 +746,21 @@ static void veth_xdp_rcv_bulk_skb(struct veth_rq *rq, void **frames,
+ 	}
+ }
+ 
++/* Send skb-backed XDP_TX packets queued by veth_xdp_rcv_skb() in one go. */
++static void veth_xdp_tx_skb_flush(struct veth_rq *rq,
++				  struct sk_buff_head *tx_list)
++{
++	if (skb_queue_empty(tx_list))
++		return;
++	generic_xdp_tx_list(tx_list,
++			    rcu_dereference_check(rq->xdp_prog,
++						  rcu_read_lock_bh_held()),
++			    XDP_TX);
++}
++
+ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
+ 					struct sk_buff *skb,
++					struct sk_buff_head *tx_list,
+ 					struct veth_stats *stats)
+ {
+ 	struct bpf_prog *xdp_prog;
+@@ -756,6 +769,7 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
+ 		.page_pool = rq->page_pool,
+ 		.xdp_rxq = &rq->xdp_rxq,
+ 		.xdp_skb = &vxbuf.skb,
++		.xdp_tx_list = tx_list,
+ 		.xdp = &vxbuf.xdp,
+ 	};
+ 	int ret;
+@@ -779,11 +793,13 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
+ 	case XDP_PASS:
+ 		break;
+ 	case XDP_TX:
+-		/* A failed transmit is counted in the device's tx_dropped
+-		 * by generic_xdp_tx(), so it is not added to xdp_tx_err.
++		/* Queued on tx_list. A failed transmit is counted in the
++		 * device's tx_dropped by generic_xdp_tx_list(), so it is not
++		 * added to xdp_tx_err.
+ 		 */
+-		if (!ctx.err)
+-			stats->xdp_skb_tx++;
++		stats->xdp_skb_tx++;
++		if (skb_queue_len(tx_list) >= VETH_XDP_TX_BULK_SIZE)
++			veth_xdp_tx_skb_flush(rq, tx_list);
+ 		break;
+ 	case XDP_REDIRECT:
+ 		if (ctx.err)
+@@ -812,6 +828,9 @@ static int veth_xdp_rcv(struct veth_rq *rq, int budget,
+ {
+ 	int i, done = 0, n_xdpf = 0;
+ 	void *xdpf[VETH_XDP_BATCH];
++	struct sk_buff_head tx_list;
++
++	__skb_queue_head_init(&tx_list);
+ 
+ 	for (i = 0; i < budget; i++) {
+ 		void *ptr = __ptr_ring_consume(&rq->xdp_ring);
+@@ -839,7 +858,7 @@ static int veth_xdp_rcv(struct veth_rq *rq, int budget,
+ 			struct sk_buff *skb = ptr;
+ 
+ 			stats->xdp_bytes += skb->len;
+-			skb = veth_xdp_rcv_skb(rq, skb, stats);
++			skb = veth_xdp_rcv_skb(rq, skb, &tx_list, stats);
+ 			if (skb) {
+ 				if (skb_shared(skb) || skb_unclone(skb, GFP_ATOMIC))
+ 					netif_receive_skb(skb);
+@@ -852,6 +871,7 @@ static int veth_xdp_rcv(struct veth_rq *rq, int budget,
+ 
+ 	if (n_xdpf)
+ 		veth_xdp_rcv_bulk_skb(rq, xdpf, n_xdpf, bq, stats);
++	veth_xdp_tx_skb_flush(rq, &tx_list);
+ 
+ 	u64_stats_update_begin(&rq->stats.syncp);
+ 	rq->stats.vs.xdp_redirect += stats->xdp_redirect;
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 56a77c8c67ba..9b0267c8675b 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -4365,6 +4365,8 @@ struct xdp_rxq_info;
+  *	must keep packets for programs without frags support within one page
+  * @xdp_rxq: optional rxq used to initialise @xdp
+  * @xdp_skb: optional pointer updated with the skb used for the XDP run
++ * @xdp_tx_list: optional list; XDP_TX skbs are queued here instead of being
++ *	sent, the caller sends them with generic_xdp_tx_list()
+  * @act: actual XDP action returned by the program
+  * @err: transmit or redirect error, valid when @act is XDP_TX or XDP_REDIRECT
+  *
+@@ -4378,6 +4380,7 @@ struct xdp_generic_ctx {
+ 	struct page_pool *page_pool;
+ 	struct xdp_rxq_info *xdp_rxq;
+ 	struct sk_buff **xdp_skb;
++	struct sk_buff_head *xdp_tx_list;
+ 	u32 act;
+ 	int err;
+ };
+@@ -4386,6 +4389,8 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
+ 			     const struct bpf_prog *xdp_prog);
+ int generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog,
+ 		   u32 act);
++void generic_xdp_tx_list(struct sk_buff_head *list,
++			 const struct bpf_prog *xdp_prog, u32 act);
+ int __do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb,
+ 		     struct xdp_generic_ctx *ctx);
+ int do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 64a79e5d5212..1ddbc6eef0fa 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5942,6 +5942,97 @@ int generic_xdp_tx(struct sk_buff *skb, const struct bpf_prog *xdp_prog,
+ 	return 0;
+ }
+ 
++/* Send a chain of validated skbs to one txq under one lock, with xmit_more
++ * set on all but the last one.
++ */
++static void generic_xdp_tx_chain(struct sk_buff *skb, struct net_device *dev,
++				 struct netdev_queue *txq,
++				 const struct bpf_prog *xdp_prog, u32 act)
++{
++	int cpu = smp_processor_id();
++	int rc;
++
++	HARD_TX_LOCK(dev, txq, cpu);
++	while (skb && !netif_xmit_frozen_or_drv_stopped(txq)) {
++		struct sk_buff *next = skb->next;
++
++		skb_mark_not_on_list(skb);
++		rc = netdev_start_xmit(skb, dev, txq, !!next);
++		if (!dev_xmit_complete(rc)) {
++			skb->next = next;
++			break;
++		}
++		skb = next;
++	}
++	HARD_TX_UNLOCK(dev, txq);
++
++	while (skb) {
++		struct sk_buff *next = skb->next;
++
++		skb_mark_not_on_list(skb);
++		trace_xdp_exception(dev, xdp_prog, act);
++		dev_core_stats_tx_dropped_inc(dev);
++		kfree_skb(skb);
++		skb = next;
++	}
++}
++
++/**
++ * generic_xdp_tx_list - send skbs queued by skb-backed XDP_TX
++ * @list: skbs to send, emptied
++ * @xdp_prog: program that returned @act, for tracing
++ * @act: XDP action, for tracing
++ *
++ * Like generic_xdp_tx() for each skb, but consecutive skbs for the same txq
++ * are sent under one HARD_TX_LOCK with xmit_more set, so that the driver
++ * can defer its doorbell to the last one. Failures are traced and counted
++ * in the device's tx_dropped.
++ */
++void generic_xdp_tx_list(struct sk_buff_head *list,
++			 const struct bpf_prog *xdp_prog, u32 act)
++{
++	struct sk_buff *skb, *head = NULL, **tail = &head;
++	struct netdev_queue *txq = NULL;
++	struct net_device *dev = NULL;
++	bool again = false;
++
++	while ((skb = __skb_dequeue(list))) {
++		struct net_device *d = skb->dev;
++		enum skb_drop_reason reason;
++		struct netdev_queue *t;
++
++		reason = qdisc_pkt_len_segs_init(skb);
++		if (unlikely(reason)) {
++			trace_xdp_exception(d, xdp_prog, act);
++			dev_core_stats_tx_dropped_inc(d);
++			kfree_skb_reason(skb, reason);
++			continue;
++		}
++
++		t = netdev_core_pick_tx(d, skb, NULL);
++		skb = validate_xmit_skb_list(skb, d, &again);
++		if (!skb) {
++			trace_xdp_exception(d, xdp_prog, act);
++			continue;
++		}
++
++		if (head && (d != dev || t != txq)) {
++			generic_xdp_tx_chain(head, dev, txq, xdp_prog, act);
++			head = NULL;
++			tail = &head;
++		}
++		dev = d;
++		txq = t;
++		*tail = skb;
++		while (skb->next)
++			skb = skb->next;
++		tail = &skb->next;
++	}
++	if (head)
++		generic_xdp_tx_chain(head, dev, txq, xdp_prog, act);
++}
++EXPORT_SYMBOL_GPL(generic_xdp_tx_list);
++
+ static DEFINE_STATIC_KEY_FALSE(generic_xdp_needed_key);
+ 
+ int __do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb,
+@@ -5964,7 +6055,11 @@ int __do_xdp_generic(const struct bpf_prog *xdp_prog, struct sk_buff **pskb,
+ 					goto out_redir;
+ 				break;
+ 			case XDP_TX:
+-				ctx->err = generic_xdp_tx(*pskb, xdp_prog, XDP_TX);
++				if (ctx->xdp_tx_list)
++					__skb_queue_tail(ctx->xdp_tx_list, *pskb);
++				else
++					ctx->err = generic_xdp_tx(*pskb, xdp_prog,
++								  XDP_TX);
+ 				break;
+ 			}
+ 			bpf_net_ctx_clear(bpf_net_ctx);
+-- 
+2.56.0
+

@@ -1,0 +1,85 @@
+KERNEL 7.4.0-rc1-00539-gaa3cd77b265f cpus=8 reps=3 secs=8 napi=softirq
+RESULT native_drop size=64 cpus=1 rep=1 pps=5761721
+PPSTAT native_drop size=64 rx_pp_alloc_fast=1043458/s
+PPSTAT native_drop size=64 rx_pp_recycle_cached=1043458/s
+RESULT native_drop size=64 cpus=1 rep=2 pps=5767786
+RESULT native_drop size=64 cpus=1 rep=3 pps=5744059
+RESULT native_tx size=64 cpus=1 rep=1 pps=4532661
+DELIV native_tx size=64 cpus=1 rep=1 pps=4533336
+PPSTAT native_tx size=64 rx_pp_alloc_fast=819763/s
+PPSTAT native_tx size=64 rx_pp_recycle_cached=819763/s
+RESULT native_tx size=64 cpus=1 rep=2 pps=4524970
+DELIV native_tx size=64 cpus=1 rep=2 pps=4524035
+RESULT native_tx size=64 cpus=1 rep=3 pps=4530487
+DELIV native_tx size=64 cpus=1 rep=3 pps=4530707
+RESULT native_redir size=64 cpus=1 rep=1 pps=4328298
+DELIV native_redir size=64 cpus=1 rep=1 pps=4328308
+PPSTAT native_redir size=64 rx_pp_alloc_fast=790307/s
+PPSTAT native_redir size=64 rx_pp_recycle_cached=790307/s
+RESULT native_redir size=64 cpus=1 rep=2 pps=4321374
+DELIV native_redir size=64 cpus=1 rep=2 pps=4321234
+RESULT native_redir size=64 cpus=1 rep=3 pps=4240824
+DELIV native_redir size=64 cpus=1 rep=3 pps=4235769
+RESULT cpu_redir size=64 cpus=1 rep=1 pps=4455876
+DELIV cpu_redir size=64 cpus=1 rep=1 pps=4436469
+PPSTAT cpu_redir size=64 rx_pp_alloc_empty=12312/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_fast=777783/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_slow=12312/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_cached=2092/s
+RESULT cpu_redir size=64 cpus=1 rep=2 pps=4503195
+DELIV cpu_redir size=64 cpus=1 rep=2 pps=4478890
+RESULT cpu_redir size=64 cpus=1 rep=3 pps=4485042
+DELIV cpu_redir size=64 cpus=1 rep=3 pps=4475228
+RESULT generic_drop size=64 cpus=1 rep=1 pps=5502429
+RESULT generic_drop size=64 cpus=1 rep=2 pps=5321457
+RESULT generic_drop size=64 cpus=1 rep=3 pps=5451673
+RESULT generic_drop size=64 cpus=4 rep=1 pps=21375090
+RESULT generic_drop size=64 cpus=4 rep=2 pps=21396322
+RESULT generic_drop size=64 cpus=4 rep=3 pps=21296294
+RESULT native_drop size=8000 cpus=1 rep=1 pps=2773564
+PPSTAT native_drop size=8000 rx_pp_alloc_fast=6002942/s
+PPSTAT native_drop size=8000 rx_pp_alloc_refill=93650/s
+PPSTAT native_drop size=8000 rx_pp_recycle_cached=290314/s
+PPSTAT native_drop size=8000 rx_pp_recycle_ring=5806278/s
+RESULT native_drop size=8000 cpus=1 rep=2 pps=2808521
+RESULT native_drop size=8000 cpus=1 rep=3 pps=2811638
+RESULT native_tx size=8000 cpus=1 rep=1 pps=2250148
+DELIV native_tx size=8000 cpus=1 rep=1 pps=2250098
+PPSTAT native_tx size=8000 rx_pp_alloc_empty=76033/s
+PPSTAT native_tx size=8000 rx_pp_alloc_fast=5033400/s
+PPSTAT native_tx size=8000 rx_pp_alloc_slow=76033/s
+PPSTAT native_tx size=8000 rx_pp_recycle_cached=243306/s
+PPSTAT native_tx size=8000 rx_pp_recycle_released_ref=4866126/s
+RESULT native_tx size=8000 cpus=1 rep=2 pps=2231445
+DELIV native_tx size=8000 cpus=1 rep=2 pps=2231144
+RESULT native_tx size=8000 cpus=1 rep=3 pps=2244811
+DELIV native_tx size=8000 cpus=1 rep=3 pps=2245096
+RESULT native_redir size=8000 cpus=1 rep=1 pps=2167431
+DELIV native_redir size=8000 cpus=1 rep=1 pps=2167216
+PPSTAT native_redir size=8000 rx_pp_alloc_empty=73925/s
+PPSTAT native_redir size=8000 rx_pp_alloc_fast=4893849/s
+PPSTAT native_redir size=8000 rx_pp_alloc_slow=73925/s
+PPSTAT native_redir size=8000 rx_pp_recycle_cached=236561/s
+PPSTAT native_redir size=8000 rx_pp_recycle_released_ref=4731214/s
+RESULT native_redir size=8000 cpus=1 rep=2 pps=2164204
+DELIV native_redir size=8000 cpus=1 rep=2 pps=2164889
+RESULT native_redir size=8000 cpus=1 rep=3 pps=2163201
+DELIV native_redir size=8000 cpus=1 rep=3 pps=2162396
+RESULT cpu_redir size=8000 cpus=1 rep=1 pps=2088521
+DELIV cpu_redir size=8000 cpus=1 rep=1 pps=2088335
+PPSTAT cpu_redir size=8000 rx_pp_alloc_empty=72745/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_fast=4594150/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_slow=72745/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_cached=11193/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_released_ref=4444662/s
+RESULT cpu_redir size=8000 cpus=1 rep=2 pps=2089948
+DELIV cpu_redir size=8000 cpus=1 rep=2 pps=2090019
+RESULT cpu_redir size=8000 cpus=1 rep=3 pps=2089334
+DELIV cpu_redir size=8000 cpus=1 rep=3 pps=2089584
+RESULT generic_drop size=8000 cpus=1 rep=1 pps=2929708
+RESULT generic_drop size=8000 cpus=1 rep=2 pps=2929568
+RESULT generic_drop size=8000 cpus=1 rep=3 pps=2921491
+RESULT generic_drop size=8000 cpus=4 rep=1 pps=11489472
+RESULT generic_drop size=8000 cpus=4 rep=2 pps=11546411
+RESULT generic_drop size=8000 cpus=4 rep=3 pps=11502369
+ERRORS 0

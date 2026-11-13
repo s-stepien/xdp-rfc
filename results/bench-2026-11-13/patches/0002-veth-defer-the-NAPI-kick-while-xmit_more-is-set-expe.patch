@@ -1,0 +1,76 @@
+From 2f0f42d85ddc97c7e999091648ef025ee353bb7e Mon Sep 17 00:00:00 2001
+From: Slawomir Stepien <sst@poczta.fm>
+Date: Thu, 12 Nov 2026 13:27:59 +0100
+Subject: [PATCH 2/2] veth: defer the NAPI kick while xmit_more is set
+ (experiment V2)
+
+---
+ drivers/net/veth.c | 25 +++++++++++++++++++++----
+ 1 file changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 56aec99ebe95..442d319c16a4 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -69,6 +69,8 @@ struct veth_rq {
+ 	struct bpf_prog __rcu	*xdp_prog;
+ 	struct veth_rq_stats	stats;
+ 	bool			rx_notify_masked;
++	/* a sender deferred the NAPI kick because of xmit_more */
++	bool			kick_pending;
+ 	struct ptr_ring		xdp_ring;
+ 	struct xdp_rxq_info	xdp_rxq;
+ 	struct page_pool	*page_pool;
+@@ -313,6 +315,13 @@ static void __veth_xdp_flush(struct veth_rq *rq)
+ 	}
+ }
+ 
++/* Kick the peer's NAPI from veth_xmit(), also for kicks deferred earlier */
++static void veth_xdp_kick(struct veth_rq *rq)
++{
++	WRITE_ONCE(rq->kick_pending, false);
++	__veth_xdp_flush(rq);
++}
++
+ static int veth_xdp_rx(struct veth_rq *rq, struct sk_buff *skb)
+ {
+ 	if (unlikely(ptr_ring_produce(&rq->xdp_ring, skb)))
+@@ -386,10 +395,15 @@ static netdev_tx_t veth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	ret = veth_forward_skb(rcv, skb, rq, use_napi);
+ 	switch (ret) {
+ 	case NET_RX_SUCCESS: /* same as NETDEV_TX_OK */
+-		if (!use_napi)
++		if (!use_napi) {
+ 			dev_sw_netstats_tx_add(dev, 1, length);
+-		else
+-			__veth_xdp_flush(rq);
++		} else if (netdev_xmit_more()) {
++			/* more packets follow, kick the peer once at the end */
++			WRITE_ONCE(rq->kick_pending, true);
++			break;
++		}
++		if (use_napi || (rq && READ_ONCE(rq->kick_pending)))
++			veth_xdp_kick(rq);
+ 		break;
+ 	case NETDEV_TX_BUSY:
+ 		/* If a qdisc is attached to our virtual device, returning
+@@ -410,12 +424,15 @@ static netdev_tx_t veth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		 * for starting txq again, until then ndo_start_xmit (this
+ 		 * function) will not be invoked by the netstack again.
+ 		 */
+-		__veth_xdp_flush(rq);
++		veth_xdp_kick(rq);
+ 		break;
+ 	case NET_RX_DROP: /* same as NET_XMIT_DROP */
+ drop:
+ 		atomic64_inc(&priv->dropped);
+ 		ret = NET_XMIT_DROP;
++		/* earlier packets of an xmit_more batch may still wait */
++		if (rq && !netdev_xmit_more() && READ_ONCE(rq->kick_pending))
++			veth_xdp_kick(rq);
+ 		break;
+ 	default:
+ 		net_crit_ratelimited("%s(%s): Invalid return code(%d)",
+-- 
+2.56.0
+
