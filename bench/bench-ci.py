@@ -26,6 +26,12 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+
+def boot_logs(d, name):
+    """bench-<name>-<round>.log of exactly this kernel name (not e.g. <name>-bp)."""
+    pat = re.compile(rf"bench-{re.escape(name)}-\d+\.log")
+    return [f for f in sorted(d.glob(f"bench-{name}-*.log")) if pat.fullmatch(f.name)]
+
 args = sys.argv[1:]
 per_run = "--per-run" in args
 show_boots = "--boots" in args
@@ -40,7 +46,7 @@ LINE = re.compile(r"^(RESULT|DELIV) (\S+) size=(\d+) cpus=(\d+) rep=\d+ pps=(\d+
 res = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
 broken = defaultdict(int)
 for n in {x for p in pairs for x in p}:
-    for f in sorted(L.glob(f"bench-{n}-*.log")):
+    for f in boot_logs(L, n):
         boot = f.stem.rsplit("-", 1)[1]
         for line in f.read_text(errors="replace").splitlines():
             m = LINE.match(line)

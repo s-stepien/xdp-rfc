@@ -11,6 +11,12 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+
+def boot_logs(d, name):
+    """bench-<name>-<round>.log of exactly this kernel name (not e.g. <name>-bp)."""
+    pat = re.compile(rf"bench-{re.escape(name)}-\d+\.log")
+    return [f for f in sorted(d.glob(f"bench-{name}-*.log")) if pat.fullmatch(f.name)]
+
 logs = Path(sys.argv[1])
 names = sys.argv[2:]
 res = defaultdict(lambda: defaultdict(list))   # test -> kernel -> [pps]
@@ -21,7 +27,7 @@ napi = defaultdict(set)                        # kernel -> NAPI modes seen in th
 
 for name in names:
     errors[name] = 0
-    for log in sorted(logs.glob(f"bench-{name}-*.log")):
+    for log in boot_logs(logs, name):
         for line in log.read_text(errors="replace").splitlines():
             m = re.match(r"KERNEL .* napi=(\S+)$", line)
             if m:
