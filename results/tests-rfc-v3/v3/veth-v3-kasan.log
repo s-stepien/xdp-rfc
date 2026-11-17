@@ -1,0 +1,65 @@
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+exec of "./udpgso_bench_rx" failed: No such file or directory
+exec of "./udpgso_bench_tx" failed: No such file or directory
+     fail client exit code 1, server 1
+gro vs xdp while down - gro flag off                         ok 
+                      - after down                           ok 
+                      - after xdp off                        ok 
+                      - after up                             ok 
+                      - after peer xdp                       ok 
+gro vs xdp while down - gro flag on                          ok 
+                      - after down                           ok 
+                      - after xdp off                        ok 
+                      - after up                             ok 
+                      - after peer xdp                       ok 
+default channels                                             ok 
+with gro enabled on link down - gro flag                     ok 
+        - peer gro flag                                      ok 
+        - tso flag                                           ok 
+        - peer tso flag                                      ok 
+        - peer ndo-xmit                                      ok 
+        - peer ndo-xmit re-armed                             ok 
+        - peer ndo-xmit cleared                              ok 
+        - own ndo-xmit                                       ok 
+        - aggregation with TSO off                           fail client exit code 1, server 1
+xdp_tx to peer with gro on                                   ok 
+setting tx channels                                          ok 
+setting both rx and tx channels                              ok 
+bad setting: combined channels                               ok 
+setting invalid channels nr                                  ok 
+bad setting: XDP with RX nr less than TX                     ok 
+bad setting: reducing RX nr below peer TX with XDP set       ok 
+bad setting: increasing peer TX nr above RX with XDP set     ok 
+setting invalid channels nr                                  ok 
+with xdp attached - gro flag                                 ok 
+        - peer gro flag                                      ok 
+        - tso flag                                           ok 
+        - peer tso flag                                      ok 
+        - no aggregation                                     fail client exit code 1, server 1
+        - gro flag with GRO on                               ok 
+        - aggregation                                        fail client exit code 1, server 1
+        - after dev off, flag                                ok 
+        - peer flag                                          ok 
+        - after gro on xdp off, gro flag                     ok 
+        - peer gro flag                                      ok 
+        - tso flag                                           ok 
+        - peer tso flag                                      ok 
+decreasing tx channels with device down                      ok 
+        - aggregation                                        fail client exit code 1, server 1
+increasing tx channels with device down                      ok 
+aggregation again with default and TSO off                   fail client exit code 1, server 1
+veth.sh rc=1
+splats=0

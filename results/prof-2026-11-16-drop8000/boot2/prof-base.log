@@ -1,0 +1,7 @@
+KERNEL 7.4.0-rc2-g7ccc5e05043b cpus=8 reps=3 secs=8 napi=softirq senders=1
+cp: cannot create regular file '/home/user/work/xdp-rfc-work/xdp-rfc-veth/nn-prof8k/bench/out-7ccc5e05043b/kallsyms.txt': Permission denied
+PPS_PLAIN 2862771
+PKTS_STAT 12716882
+STAT 22100631207,,cycles,4019973012,100.00,,
+STAT 54285902537,,instructions,4014723813,100.00,,
+ERRORS 0

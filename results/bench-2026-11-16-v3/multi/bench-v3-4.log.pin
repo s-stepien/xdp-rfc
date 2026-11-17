@@ -1,0 +1,9 @@
+PINNED 8 of 8 vCPUs, qemu 1028073
+  CPU 0/KVM -> host 0
+  CPU 1/KVM -> host 1
+  CPU 2/KVM -> host 2
+  CPU 3/KVM -> host 3
+  CPU 4/KVM -> host 4
+  CPU 5/KVM -> host 5
+  CPU 6/KVM -> host 6
+  CPU 7/KVM -> host 7

@@ -1,8 +1,9 @@
 # xdp: reuse generic skb XDP handling for veth — tests and results
 
 Scripts, kernel configs and raw logs behind the performance numbers and
-the testing section of
+the testing sections of
 
+    [PATCH RFC net-next v3 0/8] xdp: reuse generic skb XDP handling for veth
     [PATCH RFC net-next v2 0/4] xdp: reuse generic skb XDP handling for veth
 
 (v1: https://lore.kernel.org/all/20260509084858.773921-1-maciej.fijalkowski@intel.com/).
@@ -11,14 +12,34 @@ Everything here can be rerun to check or extend the numbers.
 ```
 bench/     performance benchmark (pktgen into a veth pair, XDP on the peer)
 repro/     functional reproducers and helpers to run BPF selftests in a VM
-configs/   bench.config (benchmark kernels), debug.config (functional tests)
-results/   raw logs of every run quoted in the cover letter
+configs/   bench.config (benchmark kernels), debug.config / debug-v3.config
+           (functional tests)
+results/   raw logs of every run quoted in the cover letters
 ```
 
-The patches themselves are not kept here; take them from the RFC v2
-posting on netdev.
+The patches themselves are not kept here; take them from the postings on
+netdev.
 
-## Kernels
+## RFC v3
+
+Base: net-next `7ccc5e05043b`, the series applies as posted (8 patches).
+
+| what | where |
+|---|---|
+| benchmark (cover letter tables) | `results/bench-2026-11-16-v3` |
+| functional tests, also on plain net-next and with 1/8 + 2/8 alone | `results/tests-rfc-v3` |
+| profile of native XDP_DROP at 8000 B | `results/prof-2026-11-16-drop8000` |
+| RFC v2 vs the xmit_more experiments (XDP_TX through the generic transmit path) | `results/bench-2026-11-13` |
+
+Each directory has a README with the kernels, the commands and how to
+rebuild the tables. The benchmark uses `configs/bench.config` and the
+`bench/` scripts described below; the functional tests use
+`configs/debug-v3.config` and `repro/func-v3.sh`.
+
+The rest of this file describes the RFC v2 runs; the method is the same
+for v3.
+
+## RFC v2 kernels
 
 The benchmark kernels are built from Linus' tree at `f66469d9905b`
 (v7.4-rc1-537, "Merge tag 'net-7.4-rc2'") with these patches:
@@ -129,10 +150,14 @@ repro/vm-selftests.sh <tree> xdp.log -t ns_xsk,xdp
 repro/vm-selftests.sh <tree> xsk.log xsk       # test_xsk.sh
 ```
 
+RFC v3: `repro/func-v3.sh <tree> <name> <selftests/net> <selftests/bpf>`
+runs all of the v3 tests (reproducers, T2-T4, veth.sh, test_progs), see
+`results/tests-rfc-v3`.
+
 `repro/lo-repro.sh` (see its header) runs `bpf_prog_test_run` after generic
 XDP on lo.
 
-## Results
+## RFC v2 results
 
 QEMU/KVM on a desktop host (no CPU pinning). Delivered packets/s, median of
 12 runs of 8 s over 4 alternating boots per kernel; Δ with 95 % bootstrap

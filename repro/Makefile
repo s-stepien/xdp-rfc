@@ -1,5 +1,5 @@
 # Rebuild the BPF objects and the devmap loader.
-BPF_OBJS := bench.bpf.o cov.bpf.o dmegress.bpf.o peer.bpf.o shrink.bpf.o tx.bpf.o
+BPF_OBJS := bench.bpf.o chk.bpf.o cnt.bpf.o cov.bpf.o dmegress.bpf.o peer.bpf.o shrink.bpf.o tx.bpf.o
 
 all: $(BPF_OBJS) dmload
 

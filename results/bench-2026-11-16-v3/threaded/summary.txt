@@ -1,0 +1,73 @@
+test                                     base Mpps (min..max)        v3 Mpps (min..max)      Δ v3
+-------------------------------------------------------------------------------------------------
+cpu_redir              64B cpus=1       7.334 (7.304..7.423)     7.395 (7.329..7.466)     +0.8%
+cpu_redir deliv        64B cpus=1       5.715 (5.290..5.747)     5.768 (5.657..5.868)     +0.9%
+generic_drop           64B cpus=1       5.790 (5.680..5.896)     5.653 (5.628..5.668)     -2.4%
+generic_drop           64B cpus=4      22.953 (22.708..23.179)    22.332 (22.012..22.399)     -2.7%
+native_drop            64B cpus=1       7.196 (6.799..7.265)     7.313 (7.259..7.377)     +1.6%
+native_redir           64B cpus=1       8.104 (8.047..8.223)     8.202 (7.779..8.393)     +1.2%
+native_redir deliv     64B cpus=1       8.110 (8.052..8.220)     8.199 (7.773..8.396)     +1.1%
+native_tx              64B cpus=1       7.759 (7.735..7.825)     7.704 (7.647..7.839)     -0.7%
+native_tx deliv        64B cpus=1       7.760 (7.737..7.834)     7.700 (7.649..7.843)     -0.8%
+cpu_redir            8000B cpus=1       2.796 (2.780..2.840)     3.874 (3.675..4.002)    +38.5%
+cpu_redir deliv      8000B cpus=1       2.796 (2.780..2.840)     3.874 (3.675..4.000)    +38.6%
+generic_drop         8000B cpus=1       3.040 (2.948..3.061)     2.974 (2.877..3.012)     -2.2%
+generic_drop         8000B cpus=4      11.946 (11.743..12.034)    11.632 (11.494..11.785)     -2.6%
+native_drop          8000B cpus=1       4.671 (4.596..4.700)     4.358 (4.302..4.402)     -6.7%
+native_redir         8000B cpus=1       2.848 (2.791..2.882)     3.164 (3.061..3.205)    +11.1%
+native_redir deliv   8000B cpus=1       2.848 (2.792..2.884)     3.163 (3.058..3.204)    +11.1%
+native_tx            8000B cpus=1       2.841 (2.825..2.899)     4.012 (3.944..4.172)    +41.3%
+native_tx deliv      8000B cpus=1       2.841 (2.824..2.899)     4.008 (3.942..4.173)    +41.1%
+
+page_pool stats of v1 (per second, mean over rounds; only first rep of each round)
+  cpu_redir 64B        rx_pp_alloc_empty            base=     19,570  v3=          2  
+  cpu_redir 64B        rx_pp_alloc_fast             base=  1,282,430  v3=  1,294,078  
+  cpu_redir 64B        rx_pp_alloc_refill           base=          -  v3=     19,929  
+  cpu_redir 64B        rx_pp_alloc_slow             base=     19,570  v3=          2  
+  cpu_redir 64B        rx_pp_recycle_cached         base=     49,546  v3=    107,654  
+  cpu_redir 64B        rx_pp_recycle_ring           base=          -  v3=  1,206,249  
+  cpu_redir 64B        rx_pp_recycle_ring_full      base=          -  v3=        107  
+  native_drop 64B      rx_pp_alloc_fast             base=  1,305,731  v3=  1,323,372  
+  native_drop 64B      rx_pp_recycle_cached         base=  1,305,731  v3=  1,323,372  
+  native_redir 64B     rx_pp_alloc_empty            base=     22,725  v3=          -  
+  native_redir 64B     rx_pp_alloc_fast             base=  1,458,738  v3=  1,466,112  
+  native_redir 64B     rx_pp_alloc_refill           base=          -  v3=     23,542  
+  native_redir 64B     rx_pp_alloc_slow             base=     22,725  v3=          -  
+  native_redir 64B     rx_pp_recycle_cached         base=     27,080  v3=      5,054  
+  native_redir 64B     rx_pp_recycle_ring           base=          -  v3=  1,484,598  
+  native_tx 64B        rx_pp_alloc_empty            base=     21,454  v3=          -  
+  native_tx 64B        rx_pp_alloc_fast             base=  1,383,985  v3=  1,375,566  
+  native_tx 64B        rx_pp_alloc_refill           base=          -  v3=     22,085  
+  native_tx 64B        rx_pp_alloc_slow             base=     21,454  v3=          -  
+  native_tx 64B        rx_pp_recycle_cached         base=     32,382  v3=     18,950  
+  native_tx 64B        rx_pp_recycle_ring           base=          -  v3=  1,378,701  
+  cpu_redir 8000B      rx_pp_alloc_empty            base=     97,917  v3=         63  
+  cpu_redir 8000B      rx_pp_alloc_fast             base=  6,168,759  v3=  8,455,588  
+  cpu_redir 8000B      rx_pp_alloc_refill           base=          -  v3=    134,538  
+  cpu_redir 8000B      rx_pp_alloc_slow             base=     97,917  v3=         63  
+  cpu_redir 8000B      rx_pp_recycle_cached         base=          0  v3=        814  
+  cpu_redir 8000B      rx_pp_recycle_released_ref   base=  5,968,262  v3=          -  
+  cpu_redir 8000B      rx_pp_recycle_ring           base=          -  v3=  8,585,367  
+  cpu_redir 8000B      rx_pp_recycle_ring_full      base=          -  v3=      4,008  
+  native_drop 8000B    rx_pp_alloc_fast             base= 10,126,710  v3=  9,393,132  
+  native_drop 8000B    rx_pp_alloc_refill           base=    157,983  v3=    146,539  
+  native_drop 8000B    rx_pp_recycle_cached         base=    489,748  v3=    454,270  
+  native_drop 8000B    rx_pp_recycle_ring           base=  9,794,946  v3=  9,085,401  
+  native_redir 8000B   rx_pp_alloc_empty            base=    101,826  v3=          0  
+  native_redir 8000B   rx_pp_alloc_fast             base=  6,415,027  v3=  7,106,217  
+  native_redir 8000B   rx_pp_alloc_refill           base=          -  v3=    112,126  
+  native_redir 8000B   rx_pp_alloc_slow             base=    101,826  v3=          0  
+  native_redir 8000B   rx_pp_recycle_cached         base=          1  v3=     42,312  
+  native_redir 8000B   rx_pp_recycle_released_ref   base=  6,206,526  v3=          -  
+  native_redir 8000B   rx_pp_recycle_ring           base=          -  v3=  7,176,017  
+  native_redir 8000B   rx_pp_recycle_ring_full      base=          -  v3=         28  
+  native_tx 8000B      rx_pp_alloc_empty            base=    101,291  v3=          2  
+  native_tx 8000B      rx_pp_alloc_fast             base=  6,381,312  v3=  9,031,076  
+  native_tx 8000B      rx_pp_alloc_refill           base=          -  v3=    143,350  
+  native_tx 8000B      rx_pp_alloc_slow             base=    101,291  v3=          2  
+  native_tx 8000B      rx_pp_recycle_cached         base=          0  v3=          8  
+  native_tx 8000B      rx_pp_recycle_released_ref   base=  6,173,908  v3=          -  
+  native_tx 8000B      rx_pp_recycle_ring           base=          -  v3=  9,174,343  
+  native_tx 8000B      rx_pp_recycle_ring_full      base=          -  v3=        103  
+
+kernel errors: base=0, v3=0

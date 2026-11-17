@@ -1,0 +1,4 @@
+KERNEL 7.4.0-rc2-gd54635083563
+RESULT T2 redirected_into_veth: sent=2000 v1_rx=2011 xdp_prog_saw=2010
+RESULT T3 shared_generic_nofrags: sent=2000 v1_rx=2006 xdp_prog_saw=2005 v1_rx_dropped=0
+kernel_errors=0

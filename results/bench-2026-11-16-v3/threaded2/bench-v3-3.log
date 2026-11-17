@@ -1,0 +1,76 @@
+KERNEL 7.4.0-rc2-g91ef8e809a02 cpus=8 reps=2 secs=8 napi=threaded senders=1,4
+RESULT native_drop size=64 cpus=2 rep=1 pps=11377523
+PPSTAT native_drop size=64 rx_pp_alloc_fast=2062535/s
+PPSTAT native_drop size=64 rx_pp_recycle_cached=2062535/s
+RESULT native_drop size=64 cpus=2 rep=2 pps=11324941
+RESULT native_tx size=64 cpus=2 rep=1 pps=12925034
+DELIV native_tx size=64 cpus=2 rep=1 pps=12901291
+PPSTAT native_tx size=64 rx_pp_alloc_fast=2298376/s
+PPSTAT native_tx size=64 rx_pp_alloc_refill=38814/s
+PPSTAT native_tx size=64 rx_pp_recycle_cached=194/s
+PPSTAT native_tx size=64 rx_pp_recycle_ring=2336996/s
+RESULT native_tx size=64 cpus=2 rep=2 pps=12988979
+DELIV native_tx size=64 cpus=2 rep=2 pps=12975446
+RESULT native_redir size=64 cpus=2 rep=1 pps=8114864
+DELIV native_redir size=64 cpus=2 rep=1 pps=8109622
+PPSTAT native_redir size=64 rx_pp_alloc_fast=1459816/s
+PPSTAT native_redir size=64 rx_pp_alloc_refill=23458/s
+PPSTAT native_redir size=64 rx_pp_recycle_cached=4564/s
+PPSTAT native_redir size=64 rx_pp_recycle_ring=1478710/s
+RESULT native_redir size=64 cpus=2 rep=2 pps=8036687
+DELIV native_redir size=64 cpus=2 rep=2 pps=8034884
+RESULT cpu_redir size=64 cpus=2 rep=1 pps=12894909
+DELIV cpu_redir size=64 cpus=2 rep=1 pps=5693126
+PPSTAT cpu_redir size=64 rx_pp_alloc_empty=1/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_fast=2267937/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_refill=21516/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_slow=1/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_cached=954977/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_ring=1334437/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_ring_full=39/s
+RESULT cpu_redir size=64 cpus=2 rep=2 pps=12965063
+DELIV cpu_redir size=64 cpus=2 rep=2 pps=5709569
+RESULT generic_drop size=64 cpus=2 rep=1 pps=11332953
+RESULT generic_drop size=64 cpus=2 rep=2 pps=11333925
+RESULT native_drop size=8000 cpus=2 rep=1 pps=4181707
+PPSTAT native_drop size=8000 rx_pp_alloc_fast=9047309/s
+PPSTAT native_drop size=8000 rx_pp_alloc_refill=141144/s
+PPSTAT native_drop size=8000 rx_pp_recycle_cached=437545/s
+PPSTAT native_drop size=8000 rx_pp_recycle_ring=8750908/s
+RESULT native_drop size=8000 cpus=2 rep=2 pps=4126095
+RESULT native_tx size=8000 cpus=2 rep=1 pps=3904079
+DELIV native_tx size=8000 cpus=2 rep=1 pps=3903014
+PPSTAT native_tx size=8000 rx_pp_alloc_empty=3/s
+PPSTAT native_tx size=8000 rx_pp_alloc_fast=8737475/s
+PPSTAT native_tx size=8000 rx_pp_alloc_refill=138688/s
+PPSTAT native_tx size=8000 rx_pp_alloc_slow=3/s
+PPSTAT native_tx size=8000 rx_pp_recycle_cached=2/s
+PPSTAT native_tx size=8000 rx_pp_recycle_ring=8875949/s
+PPSTAT native_tx size=8000 rx_pp_recycle_ring_full=215/s
+RESULT native_tx size=8000 cpus=2 rep=2 pps=3859980
+DELIV native_tx size=8000 cpus=2 rep=2 pps=3861024
+RESULT native_redir size=8000 cpus=2 rep=1 pps=3105938
+DELIV native_redir size=8000 cpus=2 rep=1 pps=3106013
+PPSTAT native_redir size=8000 rx_pp_alloc_empty=0/s
+PPSTAT native_redir size=8000 rx_pp_alloc_fast=7015584/s
+PPSTAT native_redir size=8000 rx_pp_alloc_refill=110642/s
+PPSTAT native_redir size=8000 rx_pp_alloc_slow=0/s
+PPSTAT native_redir size=8000 rx_pp_recycle_cached=45149/s
+PPSTAT native_redir size=8000 rx_pp_recycle_ring=7081069/s
+PPSTAT native_redir size=8000 rx_pp_recycle_ring_full=9/s
+RESULT native_redir size=8000 cpus=2 rep=2 pps=3065529
+DELIV native_redir size=8000 cpus=2 rep=2 pps=3067076
+RESULT cpu_redir size=8000 cpus=2 rep=1 pps=3829969
+DELIV cpu_redir size=8000 cpus=2 rep=1 pps=3832127
+PPSTAT cpu_redir size=8000 rx_pp_alloc_empty=72/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_fast=8423401/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_refill=134305/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_slow=72/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_cached=427/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_ring=8552742/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_ring_full=4609/s
+RESULT cpu_redir size=8000 cpus=2 rep=2 pps=3873815
+DELIV cpu_redir size=8000 cpus=2 rep=2 pps=3875459
+RESULT generic_drop size=8000 cpus=2 rep=1 pps=5958287
+RESULT generic_drop size=8000 cpus=2 rep=2 pps=5904589
+ERRORS 0

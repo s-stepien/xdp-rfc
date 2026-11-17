@@ -1,0 +1,12 @@
+95 % CI, resampling whole boots (cluster bootstrap); n = boots x runs per boot
+test                                              base→v3
+cpu_redir 64B c4              +3.6% [  +3.0,  +4.2] n=4x2 
+generic_drop 64B c4           -2.6% [  -3.4,  -1.7] n=4x2 
+native_drop 64B c4            -5.4% [  -5.7,  -4.7] n=4x2 
+native_redir 64B c4          -25.8% [ -26.9, -24.3] n=4x2 
+native_tx 64B c4             -13.3% [ -14.3, -12.5] n=4x2 
+cpu_redir 8000B c4           +42.4% [ +41.6, +45.3] n=4x2 
+generic_drop 8000B c4         -1.8% [  -3.0,  -1.0] n=4x2 
+native_drop 8000B c4          -6.2% [  -6.8,  -5.0] n=4x2 
+native_redir 8000B c4        +28.0% [ +26.0, +30.6] n=4x2 
+native_tx 8000B c4           +36.3% [ +34.7, +40.0] n=4x2 

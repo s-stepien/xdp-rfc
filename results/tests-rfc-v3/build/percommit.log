@@ -1,0 +1,8 @@
+== 8155c221078e net: fix skb tail pointer after generic XDP tail adjustment
+== a9cefdf34664 net: do not modify shared skbs in generic XDP
+== fbf88b14b8ba xdp: add mixed page_pool/page_shared memory type
+== 0cc1e6ba4b84 xdp: return status from generic_xdp_tx()
+== a45dec689be0 xdp: split generic XDP skb handling
+== b0b1542a14db veth: use generic skb XDP handling
+== 81223207eef8 xdp: do not copy page_pool-backed skbs again for veth XDP
+== 27d35f275b14 veth: send skb-backed XDP_TX to the peer in bulk

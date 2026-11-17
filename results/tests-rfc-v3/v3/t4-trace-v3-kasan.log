@@ -1,0 +1,15 @@
+KERNEL 7.4.0-rc2-gd54635083563
+RESULT T4 xdpgeneric chk_frags 64: sent=5000 v1_rx=5006 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=64 len_changes=0
+RESULT T4 xdpgeneric chk_frags 8000: sent=5000 v1_rx=5005 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=8000 len_changes=0
+RESULT T4 xdpgeneric chk 64: sent=5000 v1_rx=5005 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=64 len_changes=0
+RESULT T4 xdpgeneric chk 8000: sent=5000 v1_rx=5006 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=8000 len_changes=0
+RESULT T4 xdpdrv chk_frags 64: sent=5000 v1_rx=5005 v1_rx_dropped=0 seen=5004 hdr_ok=5000 len=64 len_changes=0
+RESULT T4 xdpdrv chk_frags 8000: sent=5000 v1_rx=5006 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=8000 len_changes=0
+RESULT T4 xdpdrv chk 64: sent=5000 v1_rx=5006 v1_rx_dropped=0 seen=5005 hdr_ok=5000 len=64 len_changes=0
+kernel_errors=0
+== trace
+
+
+@copy_expand: 10000
+@pp_nonshared: 24
+@pp_shared_off: 25000
