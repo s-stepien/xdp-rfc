@@ -1,0 +1,44 @@
+## s1_devmap 7ccc5e05043b
+  _raw_spin_lock               redirect  veth_xdp_xmit                  123.0 cyc/pkt
+  _raw_spin_lock               other     veth_xmit                       53.6 cyc/pkt
+  _raw_spin_lock               other     tmigr_handle_remote              0.0 cyc/pkt
+  _raw_spin_lock               other     timer_lock_remote_bases          0.0 cyc/pkt
+## s1_devmap 91ef8e809a02
+  _raw_spin_lock               other     veth_xmit                      123.3 cyc/pkt
+  _raw_spin_lock               redirect  veth_xmit                       43.2 cyc/pkt
+  _raw_spin_lock               other     tmigr_handle_remote              0.0 cyc/pkt
+  _raw_spin_lock               other     try_to_wake_up                   0.0 cyc/pkt
+  _raw_spin_lock               other     tmigr_update_events              0.0 cyc/pkt
+## s4_devmap 7ccc5e05043b
+  queued_spin_lock_slowpath    other     veth_xmit                      294.4 cyc/pkt
+  _raw_spin_lock               other     veth_xmit                      146.8 cyc/pkt
+  queued_spin_lock_slowpath    other     pktgen_alloc_skb                 6.3 cyc/pkt
+  _raw_spin_lock               redirect  veth_xdp_xmit                    5.9 cyc/pkt
+  queued_spin_lock_slowpath    other     veth_poll                        5.1 cyc/pkt
+  _raw_spin_lock               other     veth_poll                        0.0 cyc/pkt
+  _raw_spin_lock               other     pktgen_alloc_skb                 0.0 cyc/pkt
+## s4_devmap 91ef8e809a02
+  queued_spin_lock_slowpath    other     veth_xmit                      410.1 cyc/pkt
+  _raw_spin_lock               other     veth_xmit                      253.1 cyc/pkt
+  _raw_spin_lock               redirect  veth_xmit                      112.4 cyc/pkt
+  _raw_spin_lock               other     page_pool_put_unrefed_netmem    17.9 cyc/pkt
+  queued_spin_lock_slowpath    other     veth_poll                        3.9 cyc/pkt
+  queued_spin_lock_slowpath    other     pktgen_alloc_skb                 3.3 cyc/pkt
+  _raw_spin_lock               other     __schedule                       0.0 cyc/pkt
+  _raw_spin_lock               other     hrtick                           0.0 cyc/pkt
+  _raw_spin_lock               other     veth_poll                        0.0 cyc/pkt
+  _raw_spin_lock               redirect  generic_xdp_tx                   0.0 cyc/pkt
+  _raw_spin_lock               other     pktgen_alloc_skb                 0.0 cyc/pkt
+## t2_devmap 7ccc5e05043b
+  _raw_spin_lock               redirect  veth_xdp_xmit                    6.7 cyc/pkt
+  queued_spin_lock_slowpath    other     veth_poll                        0.3 cyc/pkt
+  queued_spin_lock_slowpath    other     page_pool_alloc_frag_netmem      0.0 cyc/pkt
+  _raw_spin_lock               other     try_to_wake_up                   0.0 cyc/pkt
+  _raw_spin_lock               other     raw_spin_rq_lock_nested          0.0 cyc/pkt
+  _raw_spin_lock               other     __schedule                       0.0 cyc/pkt
+## t2_devmap 91ef8e809a02
+  _raw_spin_lock               redirect  veth_xmit                      133.0 cyc/pkt
+  queued_spin_lock_slowpath    redirect  __napi_schedule                 37.1 cyc/pkt
+  _raw_spin_lock               redirect  __napi_schedule                  0.5 cyc/pkt
+  queued_spin_lock_slowpath    other     veth_poll                        0.1 cyc/pkt
+  _raw_spin_lock               other     __schedule                       0.0 cyc/pkt

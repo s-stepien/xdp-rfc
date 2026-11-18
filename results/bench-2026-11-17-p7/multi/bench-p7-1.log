@@ -1,0 +1,69 @@
+KERNEL 7.4.0-rc2-g6303b8dde33b cpus=8 reps=2 secs=8 napi=softirq senders=1,3,4,5
+RESULT native_drop size=64 cpus=4 rep=1 pps=14067837
+PPSTAT native_drop size=64 rx_pp_alloc_fast=2499949/s
+PPSTAT native_drop size=64 rx_pp_recycle_cached=2499949/s
+RESULT native_drop size=64 cpus=4 rep=2 pps=14032630
+RESULT native_tx size=64 cpus=4 rep=1 pps=9384292
+DELIV native_tx size=64 cpus=4 rep=1 pps=9382240
+PPSTAT native_tx size=64 rx_pp_alloc_fast=1645437/s
+PPSTAT native_tx size=64 rx_pp_alloc_refill=31380/s
+PPSTAT native_tx size=64 rx_pp_recycle_cached=602/s
+PPSTAT native_tx size=64 rx_pp_recycle_ring=1676214/s
+RESULT native_tx size=64 cpus=4 rep=2 pps=9366636
+DELIV native_tx size=64 cpus=4 rep=2 pps=9368440
+RESULT native_redir size=64 cpus=4 rep=1 pps=8647013
+DELIV native_redir size=64 cpus=4 rep=1 pps=8649344
+PPSTAT native_redir size=64 rx_pp_alloc_fast=1518042/s
+PPSTAT native_redir size=64 rx_pp_alloc_refill=29007/s
+PPSTAT native_redir size=64 rx_pp_recycle_ring=1547048/s
+RESULT native_redir size=64 cpus=4 rep=2 pps=8737474
+DELIV native_redir size=64 cpus=4 rep=2 pps=8650842
+RESULT cpu_redir size=64 cpus=4 rep=1 pps=12567873
+DELIV cpu_redir size=64 cpus=4 rep=1 pps=5599155
+PPSTAT cpu_redir size=64 rx_pp_alloc_empty=0/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_fast=2200777/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_refill=22761/s
+PPSTAT cpu_redir size=64 rx_pp_alloc_slow=0/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_cached=919658/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_ring=1303858/s
+PPSTAT cpu_redir size=64 rx_pp_recycle_ring_full=23/s
+RESULT cpu_redir size=64 cpus=4 rep=2 pps=12463232
+DELIV cpu_redir size=64 cpus=4 rep=2 pps=5646522
+RESULT generic_drop size=64 cpus=4 rep=1 pps=22672110
+RESULT generic_drop size=64 cpus=4 rep=2 pps=22657155
+RESULT native_drop size=8000 cpus=4 rep=1 pps=4159489
+PPSTAT native_drop size=8000 rx_pp_alloc_fast=9001582/s
+PPSTAT native_drop size=8000 rx_pp_alloc_refill=140430/s
+PPSTAT native_drop size=8000 rx_pp_recycle_cached=435334/s
+PPSTAT native_drop size=8000 rx_pp_recycle_ring=8706678/s
+RESULT native_drop size=8000 cpus=4 rep=2 pps=4094565
+RESULT native_tx size=8000 cpus=4 rep=1 pps=3479122
+DELIV native_tx size=8000 cpus=4 rep=1 pps=3447164
+PPSTAT native_tx size=8000 rx_pp_alloc_fast=7707123/s
+PPSTAT native_tx size=8000 rx_pp_alloc_refill=122857/s
+PPSTAT native_tx size=8000 rx_pp_recycle_cached=2401/s
+PPSTAT native_tx size=8000 rx_pp_recycle_ring=7827587/s
+RESULT native_tx size=8000 cpus=4 rep=2 pps=3492533
+DELIV native_tx size=8000 cpus=4 rep=2 pps=3459153
+RESULT native_redir size=8000 cpus=4 rep=1 pps=3500885
+DELIV native_redir size=8000 cpus=4 rep=1 pps=3500286
+PPSTAT native_redir size=8000 rx_pp_alloc_fast=7904930/s
+PPSTAT native_redir size=8000 rx_pp_alloc_refill=126402/s
+PPSTAT native_redir size=8000 rx_pp_recycle_cached=1065/s
+PPSTAT native_redir size=8000 rx_pp_recycle_ring=8030279/s
+RESULT native_redir size=8000 cpus=4 rep=2 pps=3453794
+DELIV native_redir size=8000 cpus=4 rep=2 pps=3420688
+RESULT cpu_redir size=8000 cpus=4 rep=1 pps=3784119
+DELIV cpu_redir size=8000 cpus=4 rep=1 pps=3784464
+PPSTAT cpu_redir size=8000 rx_pp_alloc_empty=39/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_fast=8210026/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_refill=130504/s
+PPSTAT cpu_redir size=8000 rx_pp_alloc_slow=39/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_cached=244/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_ring=8337804/s
+PPSTAT cpu_redir size=8000 rx_pp_recycle_ring_full=2520/s
+RESULT cpu_redir size=8000 cpus=4 rep=2 pps=3770022
+DELIV cpu_redir size=8000 cpus=4 rep=2 pps=3769777
+RESULT generic_drop size=8000 cpus=4 rep=1 pps=11639131
+RESULT generic_drop size=8000 cpus=4 rep=2 pps=11555571
+ERRORS 0

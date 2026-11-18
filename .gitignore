@@ -2,3 +2,6 @@ logs/
 *.o
 repro/dmload
 __pycache__/
+perf.data
+perf-g.data
+kallsyms.txt

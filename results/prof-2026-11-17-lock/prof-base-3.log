@@ -1,0 +1,14 @@
+KERNEL 7.4.0-rc2-g7ccc5e05043b cpus=8 reps=3 secs=8 napi=softirq senders=1
+CASE s1_devmap napi=softirq senders=1 cpus=1 v1_pps=4326386 deliv_pps=4325505
+STAT s1_devmap pkts=18633308 22224419745,cycles 64887265709,instructions 
+CASE s4_devmap napi=softirq senders=1,3,4,5 cpus=1,3,4,5 v1_pps=11943774 deliv_pps=11941480
+STAT s4_devmap pkts=50161934 87363515825,cycles 151830751746,instructions 
+CASE s1_cpumap napi=softirq senders=1 cpus=2 v1_pps=4606407 deliv_pps=4592301
+STAT s1_cpumap pkts=18355152 21624851551,cycles 87211850851,instructions 
+CASE s4_cpumap napi=softirq senders=1,3,4,5 cpus=2 v1_pps=12518037 deliv_pps=5476099
+STAT s4_cpumap pkts=22049848 21599051713,cycles 101319978823,instructions 
+CASE t2_devmap napi=threaded senders=1,4 cpus=3 v1_pps=13097535 deliv_pps=13078920
+STAT t2_devmap pkts=53800928 21831619952,cycles 65462244724,instructions 
+CASE t2_cpumap napi=threaded senders=1,4 cpus=2 v1_pps=12929481 deliv_pps=5496824
+STAT t2_cpumap pkts=22434425 21647329049,cycles 102720457747,instructions 
+ERRORS 0

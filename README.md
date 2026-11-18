@@ -29,6 +29,8 @@ Base: net-next `7ccc5e05043b`, the series applies as posted (8 patches).
 | benchmark (cover letter tables) | `results/bench-2026-11-16-v3` |
 | functional tests, also on plain net-next and with 1/8 + 2/8 alone | `results/tests-rfc-v3` |
 | profile of native XDP_DROP at 8000 B | `results/prof-2026-11-16-drop8000` |
+| what 8/8 brings: base vs 1/8..7/8 vs v3, multi-sender modes | `results/bench-2026-11-17-p7` |
+| profiles of 64 B devmap redirect to veth and cpumap (Performance explanations) | `results/prof-2026-11-17-lock` |
 | RFC v2 vs the xmit_more experiments (XDP_TX through the generic transmit path) | `results/bench-2026-11-13` |
 
 Each directory has a README with the kernels, the commands and how to

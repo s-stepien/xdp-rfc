@@ -1,0 +1,6 @@
+base boot 1: exit=0 PINNED 8 of 8 vCPUs, qemu 1380143 6 cases, ERRORS 0
+v3 boot 1: exit=0 PINNED 8 of 8 vCPUs, qemu 1380749 6 cases, ERRORS 0
+base boot 2: exit=0 PINNED 8 of 8 vCPUs, qemu 1381571 6 cases, ERRORS 0
+v3 boot 2: exit=0 PINNED 8 of 8 vCPUs, qemu 1382106 6 cases, ERRORS 0
+base boot 3: exit=0 PINNED 8 of 8 vCPUs, qemu 1382678 6 cases, ERRORS 0
+v3 boot 3: exit=0 PINNED 8 of 8 vCPUs, qemu 1383198 6 cases, ERRORS 0
